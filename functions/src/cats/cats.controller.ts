@@ -10,19 +10,18 @@ import {
 import { CatsService } from "./cats.service";
 import { CreateCatDto } from "./dto/create-cat.dto";
 import { UpdateCatDto } from "./dto/update-cat.dto";
-import { Cat } from "./interfaces/cat.interface";
 
 @Controller("cats")
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Post()
-  create(@Body() createCatDto: CreateCatDto) {
-    this.catsService.create(createCatDto);
+  async create(@Body() createCatDto: CreateCatDto) {
+    await this.catsService.create(createCatDto);
   }
 
   @Get()
-  async findAll(): Promise<Cat[]> {
+  async findAll() {
     return this.catsService.findAll();
   }
 
@@ -40,7 +39,7 @@ export class CatsController {
     id: string,
     @Body() updateCatDto: UpdateCatDto
   ) {
-    this.catsService.update(id, updateCatDto);
+    await this.catsService.update(id, updateCatDto);
   }
 
   @Delete(":id")
@@ -48,6 +47,6 @@ export class CatsController {
     @Param("id")
     id: string
   ) {
-    this.catsService.remove(id);
+    await this.catsService.remove(id);
   }
 }

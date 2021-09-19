@@ -4,49 +4,49 @@ import { Injectable } from "@nestjs/common";
 import { CreateCatDto } from "./dto/create-cat.dto";
 import { UpdateCatDto } from "./dto/update-cat.dto";
 import { Cat } from "./interfaces/cat.interface";
+import * as admin from "firebase-admin";
 
 @Injectable()
 export class CatsService {
-  private readonly cats: { [id: string]: Cat } = {
-    0: { name: "Garfield", id: "0", age: 2 },
-  };
+  private readonly collectionRef: FirebaseFirestore.CollectionReference<FirebaseFirestore.DocumentData>;
+  constructor() {
+    admin.initializeApp();
+    const db = admin.firestore();
+    this.collectionRef = db.collection("cats");
+  }
 
   create(createCatDto: CreateCatDto) {
-    const id = "" + Object.keys(this.cats).length;
-    this.cats[id] = { id, ...createCatDto };
+    const newDocRef = this.collectionRef.doc();
+    return newDocRef.set(createCatDto);
   }
 
-  update(id: string, updateCatDto: UpdateCatDto) {
-    const cat = this.cats[id];
+  async update(id: string, updateCatDto: UpdateCatDto) {
+    const docRef = this.collectionRef.doc(id);
 
-    if (!cat) {
+    try {
+      const result = await docRef.update(updateCatDto);
+      return result;
+    } catch {
+      throw new HttpException("Cat not found", HttpStatus.NOT_FOUND);
+    }
+  }
+
+  async findAll() {
+    const snapshot = await this.collectionRef.get();
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  }
+
+  async findOne(id: string) {
+    const result = await this.collectionRef.doc(id).get();
+
+    if (!result.exists) {
       throw new HttpException("Cat not found", HttpStatus.NOT_FOUND);
     }
 
-    this.cats[id] = { id, ...cat, ...updateCatDto };
-  }
-
-  findAll(): Cat[] {
-    return Object.values(this.cats);
-  }
-
-  findOne(id: string): Cat {
-    const cat = this.cats[id];
-
-    if (!cat) {
-      throw new HttpException("Cat not found", HttpStatus.NOT_FOUND);
-    }
-
-    return cat;
+    return { id, ...result.data() };
   }
 
   remove(id: string) {
-    const cat = this.cats[id];
-
-    if (!cat) {
-      throw new HttpException("Cat not found", HttpStatus.NOT_FOUND);
-    }
-
-    delete this.cats[id];
+    return this.collectionRef.doc(id).delete();
   }
 }
