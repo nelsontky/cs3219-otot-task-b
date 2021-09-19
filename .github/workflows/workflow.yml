@@ -32,6 +32,6 @@ jobs:
           cache-dependency-path: functions/package-lock.json
       - run: npm ci
       - run: npm install -g firebase-tools
-      - run: npm run serve
+      - run: npm run build
       - run: npm test
       - run: npm run deploy -- --token ${{ secrets.GCLOUD_TOKEN }}
