@@ -1,0 +1,23 @@
+{
+  "name": "task-b",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run serve --prefix functions\" \"npm run start --prefix client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nelsontky/cs3219-otot-task-b.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nelsontky/cs3219-otot-task-b/issues"
+  },
+  "homepage": "https://github.com/nelsontky/cs3219-otot-task-b#readme",
+  "devDependencies": {
+    "concurrently": "^6.2.1"
+  }
+}
