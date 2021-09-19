@@ -1,10 +1,13 @@
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Container } from "@mui/material";
+import Demo from "./components/Demo";
 
 function App() {
   return (
     <>
       <CssBaseline />
-      <div>Hello</div>
+      <Container fixed>
+        <Demo />
+      </Container>
     </>
   );
 }

@@ -2,6 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import axios from "axios";
+import { CssBaseline } from "@mui/material";
+
+axios.defaults.baseURL = "/cs3219-otot-37c4a/us-central1/api";
 
 ReactDOM.render(
   <React.StrictMode>

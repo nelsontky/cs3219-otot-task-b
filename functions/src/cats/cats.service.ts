@@ -3,7 +3,6 @@ import { HttpStatus } from "@nestjs/common";
 import { Injectable } from "@nestjs/common";
 import { CreateCatDto } from "./dto/create-cat.dto";
 import { UpdateCatDto } from "./dto/update-cat.dto";
-import { Cat } from "./interfaces/cat.interface";
 import * as admin from "firebase-admin";
 
 @Injectable()
