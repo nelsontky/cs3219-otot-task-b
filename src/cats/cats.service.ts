@@ -39,4 +39,14 @@ export class CatsService {
 
     return cat;
   }
+
+  remove(id: string) {
+    const cat = this.cats[id];
+
+    if (!cat) {
+      throw new HttpException("Cat not found", HttpStatus.NOT_FOUND);
+    }
+
+    delete this.cats[id];
+  }
 }
