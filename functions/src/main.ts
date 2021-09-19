@@ -23,6 +23,4 @@ bootstrap(server)
   .then(() => console.log("Nest Ready"))
   .catch((err) => console.error("Nest broken", err));
 
-export const api = functions
-  .runWith({ maxInstances: 1 })
-  .https.onRequest(server);
+export const api = functions.https.onRequest(server);
