@@ -4,7 +4,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import axios from "axios";
 
-axios.defaults.baseURL = "/cs3219-otot-37c4a/us-central1/api";
+if (process.env.NODE_ENV === "production") {
+  axios.defaults.baseURL =
+    "https://us-central1-cs3219-otot-37c4a.cloudfunctions.net/api";
+} else {
+  axios.defaults.baseURL = "/cs3219-otot-37c4a/us-central1/api";
+}
 
 ReactDOM.render(
   <React.StrictMode>
