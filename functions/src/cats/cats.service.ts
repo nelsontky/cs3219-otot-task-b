@@ -25,8 +25,12 @@ export class CatsService {
     try {
       const result = await docRef.update(updateCatDto);
       return result;
-    } catch {
-      throw new HttpException("Cat not found", HttpStatus.NOT_FOUND);
+    } catch (e) {
+      if (e?.code === 5) {
+        throw new HttpException("Cat not found", HttpStatus.NOT_FOUND);
+      } else {
+        throw new HttpException("Bad Request", HttpStatus.BAD_REQUEST);
+      }
     }
   }
 
