@@ -20,6 +20,13 @@ interface DemoDeleteProps {
 export default function DemoDelete({ cats, reload }: DemoDeleteProps) {
   const [id, setId] = React.useState("");
 
+  const selectedCat = cats.find((cat) => cat.id === id);
+  React.useEffect(() => {
+    if (!selectedCat) {
+      setId("");
+    }
+  }, [selectedCat]);
+
   const onSubmit = () => {
     axios
       .delete(`/cats/${id}`)
@@ -38,7 +45,7 @@ export default function DemoDelete({ cats, reload }: DemoDeleteProps) {
   return (
     <Box>
       <Typography variant="h6" sx={{ marginBottom: 2 }}>
-        Delete:
+        DELETE:
       </Typography>
       <FormControl fullWidth sx={{ marginBottom: 2 }}>
         <InputLabel>Cat</InputLabel>
