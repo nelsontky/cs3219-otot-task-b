@@ -31,14 +31,14 @@ describe("Cats", () => {
   });
 
   describe("/GET cats", () => {
-    it("should return an array of cats", () => {
+    it("should return an array of cats and 200 on success", () => {
       return request(app.getHttpServer())
         .get("/cats")
         .expect(200)
         .expect(catsService.findAll());
     });
 
-    it("should return a single cat", () => {
+    it("should return a single cat and 200 on success", () => {
       return request(app.getHttpServer())
         .get("/cats/abc")
         .expect(200)

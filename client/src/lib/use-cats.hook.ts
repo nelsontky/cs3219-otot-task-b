@@ -6,9 +6,6 @@ export function useCats() {
   const [data, setData] = React.useState<Cat[]>();
   const [error, setError] = React.useState();
   const reload = React.useCallback(() => {
-    setData(undefined);
-    setError(undefined);
-
     axios
       .get<Cat[]>("/cats")
       .then((res) => {
