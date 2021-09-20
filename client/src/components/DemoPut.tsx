@@ -21,6 +21,11 @@ export default function DemoPut({ cats, reload }: DemoPutProps) {
   const [id, setId] = React.useState("");
 
   const selectedCat = cats.find((cat) => cat.id === id);
+  React.useEffect(() => {
+    if (!selectedCat) {
+      setId("");
+    }
+  }, [selectedCat]);
 
   const getOnSubmit =
     (name: string, age: number) => (e: React.FormEvent<HTMLFormElement>) => {
