@@ -10,7 +10,7 @@
     "deploy": "firebase deploy --only functions",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "lint": "eslint '{src,apps,libs,test}/**/*.ts' --fix",
-    "serve": "nest start --watch & firebase emulators:start",
+    "serve": "concurrently \"nest start --watch\" \"firebase emulators:start\"",
     "test": "jest --config ./e2e/jest-e2e.json"
   },
   "dependencies": {
